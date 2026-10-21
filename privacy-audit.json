@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "files_checked": 35,
+  "vendor_binaries_included": false,
+  "user_projects_included": false,
+  "runtime_logs_included": false,
+  "native_pdb_records": 0,
+  "allowed_native_metadata": "MSVC POGO section layout only; no CodeView/PDB records",
+  "private_denylist_checked": true,
+  "method": "Explicit allowlist; credential and home-path patterns; private denylist; UTF-8/UTF-16/GB18030 byte checks; PE32 debug-directory checks"
+}

@@ -1,0 +1,10 @@
+# SystemView5 Automation
+
+> Windows CLI and local native automation API for ELANIX SystemView 5.0 Build046.
+
+- [AI quick start](docs/AI_USAGE.md): installation, command workflow, completion checks, local data handling.
+- [Interface guide](docs/INTERFACE.md): CLI, JSON model recipes, named ports, power spectrum, complex FFT, Python API.
+- [Build and privacy](docs/BUILD_AND_PRIVACY.md): native helper build, release checks and scope.
+- [Download](https://github.com/6535c/systemview5-automation/releases/latest): portable Windows package.
+
+Requires an independently installed, usable SystemView 5 Build046 and Python 3.10+. No vendor executable or license is distributed. Not SEGGER SystemView or modern Keysight SystemVue. No Computer Use, network listener or telemetry is required.

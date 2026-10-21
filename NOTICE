@@ -1,0 +1,10 @@
+This distribution contains the SystemView5 Automation adapter, its original
+native bridge sources and compiled helpers, and generic educational recipes.
+
+ELANIX SystemView, SystemVue, their trademarks, vendor executables, libraries,
+documentation and licenses remain the property of their respective owners.
+They are not included in this distribution. This project is not affiliated
+with, sponsored by or endorsed by those owners.
+
+Users must supply their own legally usable installation. No license checks,
+activation or access controls are bypassed by this adapter.
