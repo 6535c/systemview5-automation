@@ -1,0 +1,37 @@
+{
+  "schema":1,
+  "name":"AMI capability acceptance",
+  "verification":"ami",
+  "verification_options":{"startup_symbols":1},
+  "timing":{"fs":10000,"stop":0.5,"start":0},
+  "nodes":[
+    {"id":"jk","kind":"logic","at":[550,220],"choice":"FF-JK*","params":{"21":0,"42":0.5,"44":1,"46":0,"48":0,"50":0}},
+    {"id":"pn","kind":"source","at":[80,100],"choice":"PN Seq","params":{"21":1,"42":50,"44":2,"46":1,"48":0}},
+    {"id":"clock","kind":"source","at":[80,340],"choice":"Pulse Train","params":{"21":1,"42":50,"44":0.01,"46":0,"48":0}},
+    {"id":"gate","kind":"operator","at":[330,220],"choice":"And","params":{"21":0.5,"42":1,"44":0}},
+    {"id":"high","kind":"source","at":[330,70],"choice":"Step Fct","params":{"21":1,"42":0}},
+    {"id":"low","kind":"source","at":[330,470],"choice":"Step Fct","params":{"21":0,"42":0}},
+    {"id":"derivative","kind":"operator","at":[730,220],"choice":"Derivative","params":{"21":1}},
+    {"id":"sampler","kind":"operator","at":[890,220],"choice":"Sampler","params":{"21":50,"42":0}},
+    {"id":"hold","kind":"operator","at":[1050,220],"choice":"Hold","params":{"21":1}},
+    {"id":"s-input","kind":"sink","at":[280,100],"choice":"Analysis"},
+    {"id":"s-gate","kind":"sink","at":[520,340],"choice":"Analysis"},
+    {"id":"s-q","kind":"sink","at":[700,80],"choice":"Analysis"},
+    {"id":"s-derivative","kind":"sink","at":[890,400],"choice":"Analysis"},
+    {"id":"s-output","kind":"sink","at":[1200,220],"choice":"Analysis"}
+  ],
+  "edges":[
+    {"from":"pn","to":"gate"},{"from":"clock","to":"gate"},
+    {"from":"high","to":"jk","port":"Set*"},{"from":"high","to":"jk","port":"J"},
+    {"from":"high","to":"jk","port":"Clear*"},{"from":"low","to":"jk","port":"K*"},
+    {"from":"gate","to":"jk","port":"Clock"},
+    {"from":"jk","to":"derivative","out_port":"Q"},
+    {"from":"derivative","to":"sampler"},{"from":"sampler","to":"hold"},
+    {"from":"pn","to":"s-input"},{"from":"gate","to":"s-gate"},
+    {"from":"jk","to":"s-q","out_port":"Q"},{"from":"derivative","to":"s-derivative"},
+    {"from":"hold","to":"s-output"}
+  ],
+  "outputs":{"input":"s-input","gated-clock":"s-gate","q":"s-q","derivative":"s-derivative","output":"s-output"},
+  "spectra":["output"],
+  "fft_views":[{"name":"ami-fft-example","signal":"output","xlim":[-1600,1600],"ylim":[0,2000]}]
+}

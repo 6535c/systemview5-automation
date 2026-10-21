@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "name": "NRZ/RZ capability acceptance",
+  "verification": "nrz-rz",
+  "timing": {"fs":10000,"stop":0.5,"start":0},
+  "nodes": [
+    {"id":"rz","kind":"operator","at":[320,100],"choice":"And","params":{"21":0.5,"42":1,"44":0}},
+    {"id":"pn","kind":"source","at":[80,100],"choice":"PN Seq","params":{"21":1,"42":50,"44":2,"46":1,"48":0}},
+    {"id":"clock","kind":"source","at":[80,260],"choice":"Pulse Train","params":{"21":1,"42":50,"44":0.01,"46":0,"48":0}},
+    {"id":"invert","kind":"operator","at":[280,380],"choice":"Not","params":{"21":0.5,"42":1,"44":0}},
+    {"id":"inverse-gate","kind":"operator","at":[480,340],"choice":"And","params":{"21":0.5,"42":1,"44":0}},
+    {"id":"negative-rz","kind":"operator","at":[640,340],"choice":"Not","params":{"21":0.5,"42":0,"44":-1}},
+    {"id":"bipolar-rz","kind":"adder","at":[800,200]},
+    {"id":"minus-one","kind":"source","at":[80,520],"choice":"Step Fct","params":{"21":-1,"42":0}},
+    {"id":"bipolar-nrz","kind":"adder","at":[480,520]},
+    {"id":"s-unipolar-nrz","kind":"sink","at":[280,60],"choice":"Analysis"},
+    {"id":"s-clock","kind":"sink","at":[270,230],"choice":"Analysis"},
+    {"id":"s-inverted-nrz","kind":"sink","at":[450,430],"choice":"Analysis"},
+    {"id":"s-unipolar-rz","kind":"sink","at":[520,100],"choice":"Analysis"},
+    {"id":"s-negative-rz","kind":"sink","at":[800,360],"choice":"Analysis"},
+    {"id":"s-bipolar-rz","kind":"sink","at":[980,200],"choice":"Analysis"},
+    {"id":"s-bipolar-nrz","kind":"sink","at":[680,520],"choice":"Analysis"}
+  ],
+  "edges": [
+    {"from":"pn","to":"rz"},{"from":"clock","to":"rz"},
+    {"from":"pn","to":"invert"},{"from":"invert","to":"inverse-gate"},{"from":"clock","to":"inverse-gate"},
+    {"from":"inverse-gate","to":"negative-rz"},{"from":"rz","to":"bipolar-rz"},{"from":"negative-rz","to":"bipolar-rz"},
+    {"from":"pn","to":"bipolar-nrz"},{"from":"minus-one","to":"bipolar-nrz"},
+    {"from":"pn","to":"s-unipolar-nrz"},{"from":"clock","to":"s-clock"},{"from":"invert","to":"s-inverted-nrz"},
+    {"from":"rz","to":"s-unipolar-rz"},{"from":"negative-rz","to":"s-negative-rz"},
+    {"from":"bipolar-rz","to":"s-bipolar-rz"},{"from":"bipolar-nrz","to":"s-bipolar-nrz"}
+  ],
+  "outputs": {"unipolar-nrz":"s-unipolar-nrz","clock":"s-clock","inverted-nrz":"s-inverted-nrz","unipolar-rz":"s-unipolar-rz","negative-rz":"s-negative-rz","bipolar-rz":"s-bipolar-rz","bipolar-nrz":"s-bipolar-nrz"},
+  "spectra": ["unipolar-nrz","unipolar-rz","bipolar-rz","bipolar-nrz"]
+}
